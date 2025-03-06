@@ -44,12 +44,4 @@ async def testFunc(app_pid):
         await asyncio.sleep(5)
 #Start Aysnc
 # asyncio.run(testFunc(app_pid))
-# runingCheck.process_check(app_pid)
-# print(app_pid)
-# for process in psutil.process_iter(attrs=["pid","name"]):
-#     print(process.info)
-# for process in psutil.process_iter(attrs=["pid","name"]):
-#             # print(f"Checking: {process.info}") 
-#         if process.info["name"] and app_name.lower() in process.info["name"]:
-#             print (process.info["pid"])
      

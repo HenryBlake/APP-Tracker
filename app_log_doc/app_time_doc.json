@@ -1,3 +1,10 @@
-{
-    "app_name":"steam"
-}
+[
+    {
+        "app_name": "steam",
+        "run_time": 0.0
+    },
+    {
+        "name": "overwatch",
+        "run_time": 0.0
+    }
+]
