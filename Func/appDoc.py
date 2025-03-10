@@ -1,11 +1,15 @@
 import psutil
 import json
 import time
+import asyncio
+
 class AppDoc:
     def __init__(self):
         self.app_time=0
         self.json_path_name="app_log_doc/app_time_doc.json"
         self.app_list=[]
+        self.current_time=0
+        self.last_time=0
 #Only use for save app name to list
     def writeAPP(self,app_name):
         data=self.readApp()
@@ -35,8 +39,8 @@ class AppDoc:
                 print("Decoder ERROR!")
     
     def createionTime(self,app_pid):
-        self.app_time= time.time()-psutil.Process(app_pid).create_time()
-        return self.app_time
+        create_time= psutil.Process(app_pid).create_time()
+        return create_time
     
     def diffNameCheck(self,app_name):
          self.app_list=self.readApp()
@@ -47,9 +51,18 @@ class AppDoc:
               else:
                  self.writeAPP(app_name)
             #   print(app["app_name"])
-#TODO:create a function that calculate the Time and another one to save time in file
-    def timeCal(time1,time2):
-         return
+#TODO:create a function that calculate the Time and another one to record time in file
+# current-(last-create)=run_time
+# not the final function. It correct locically and need to bind withe GUI to see what's going on 
+    def timeCal(self,app_pid):
+          self.last_time=self.current_time
+        # print(f"The last time:{self.last_time}")
+          self.current_time=time.time()-self.createionTime(app_pid)
+          print(f"The current time:{self.current_time}")
+          self.app_time=self.current_time-self.last_time
+          print(f"The run time:{self.app_time}")
+          print(f"The last time:{self.last_time}")
+          return self.app_time
     
-    def runTimeSave(run_time):
+    def runTimeSave(self,run_time):
          return
