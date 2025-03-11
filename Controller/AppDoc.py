@@ -6,7 +6,7 @@ import asyncio
 class AppDoc:
     def __init__(self):
         self.app_time=0
-        self.json_path_name="app_log_doc/app_time_doc.json"
+        self.json_path_name="Model/app_time_doc.json"
         self.app_list=[]
         self.current_time=0
         self.last_time=0
@@ -66,3 +66,9 @@ class AppDoc:
     
     def runTimeSave(self,run_time):
          return
+#Check if there are apps with same names
+    def process_check(self,app_pid):
+        if app_pid==None:
+            print("The process is not runing!")
+        else:
+            print(f"The {app_pid} is runing right now!")

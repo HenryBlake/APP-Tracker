@@ -1,7 +1,13 @@
-#This funcation will find the PID of Applications and return them to next step
 import psutil
-class pidTracker:
-    def findPID(self,app_name):
+class Trackers:
+    def nameTracker(self,app_pid):
+        try:
+            process=psutil.Process(app_pid)
+            return process.name()
+        except psutil.NoSuchProcess:
+            return None
+        
+    def PidTracker(self,app_name):
         for process in psutil.process_iter(attrs=["pid","name"]):
             # print(f"Checking: {process.info}") 
             if process.info["name"] and app_name.lower() in process.info["name"]:

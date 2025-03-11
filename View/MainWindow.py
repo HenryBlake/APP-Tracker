@@ -1,5 +1,6 @@
 import sys
 from PyQt6.QtWidgets import QApplication,QWidget
+from View.Menu import Menu
 
 class MainWindow():
     def __init__(self):
