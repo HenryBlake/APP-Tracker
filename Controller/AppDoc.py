@@ -16,7 +16,7 @@ class AppDoc:
         try:
             with open(self.json_path_name,"w",encoding="utf-8") as file:
                 # data=json.load(file)
-                app_data={"name":app_name,"run_time":0.00}
+                app_data={"app_name":app_name,"run_time":0.00}
                 data.append(app_data)
                 json.dump(data,file,indent=4)
                 # print(data)
@@ -52,8 +52,8 @@ class AppDoc:
                  self.writeAPP(app_name)
             #   print(app["app_name"])
 #TODO:create a function that calculate the Time and another one to record time in file
-# current-(last-create)=run_time
-# not the final function. It correct locically and need to bind withe GUI to see what's going on 
+# current-(last-create)=run_time 
+#return the time period since last saved time.
     def timeCal(self,app_pid):
           self.last_time=self.current_time
         # print(f"The last time:{self.last_time}")

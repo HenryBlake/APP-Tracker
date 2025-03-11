@@ -5,17 +5,16 @@ import psutil
 import time
 from Controller.AppDoc import AppDoc
 from View.MainWindow import MainWindow
-from View.Menu import Menu
 
 #Init area
 
 appDoc=AppDoc()
 app=QApplication(sys.argv)
-main_window=MainWindow()
 #TODO: Lean and Create the GUI.
 #Window container
 
-app_window=main_window.initWindow()
+# app_window=MainWindow().initWindow()
+app_window=MainWindow()
 app_window.show()
 #Excute the window
 sys.exit(app.exec())
