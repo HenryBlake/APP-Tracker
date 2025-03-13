@@ -11,7 +11,7 @@ class AppDoc:
         self.current_time=0
         self.last_time=0
 #Only use for save app name to list
-    def writeAPP(self,app_name):
+    def writeAPP(self,app_name,QLabel):
         data=self.readApp()
         try:
             with open(self.json_path_name,"w",encoding="utf-8") as file:
@@ -23,6 +23,7 @@ class AppDoc:
                 print(f"Writing {app_name}")
         except FileNotFoundError:
                 print("The file is not found!")
+                QLabel.setText("this file is not found!")
         except json.JSONDecodeError:
                 print("Decoder ERROR!")
         print(f"{app_name} is recoeded")
@@ -34,9 +35,9 @@ class AppDoc:
                 data=json.load(file)
                 return data
          except FileNotFoundError:
-                print("The file is not found!")
+                return "The file is not found!"
          except json.JSONDecodeError:
-                print("Decoder ERROR!")
+                return "Decoder ERROR!"
     
     def createionTime(self,app_pid):
         create_time= psutil.Process(app_pid).create_time()
