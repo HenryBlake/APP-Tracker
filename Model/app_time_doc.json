@@ -1,10 +1,10 @@
 [
     {
-        "app_name": "steam",
-        "run_time": 0.0
+        "app_name": "steam.exe",
+        "run_time": 200
     },
     {
-        "app_name": "overwatch",
+        "app_name": "overwatch.exe",
         "run_time": 0.0
     }
 ]

@@ -52,7 +52,7 @@ class AppDoc:
               else:
                  self.writeAPP(app_name)
             #   print(app["app_name"])
-#TODO:create a function that calculate the Time and another one to record time in file
+
 # current-(last-create)=run_time 
 #return the time period since last saved time.
     def timeCal(self,app_pid):
@@ -65,11 +65,11 @@ class AppDoc:
           print(f"The last time:{self.last_time}")
           return self.app_time
     
-    def runTimeSave(self,run_time):
-         return
+    
 #Check if there are apps with same names
     def process_check(self,app_pid):
         if app_pid==None:
             print("The process is not runing!")
         else:
             print(f"The {app_pid} is runing right now!")
+#TODO:Create a function for normalize the Time and another one to chcek the content is not null or wrong.
