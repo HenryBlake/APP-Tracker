@@ -4,7 +4,11 @@
         "run_time": 200
     },
     {
-        "app_name": "overwatch.exe",
+        "app_name": "csgo",
+        "run_time": 0.0
+    },
+    {
+        "app_name": "overwatch",
         "run_time": 0.0
     }
 ]

@@ -16,7 +16,6 @@ class AppInfo:
         try:
            with open(self.json_path_name,"w",encoding="utf-8") as file:
                json.dump(data,file,indent=4)
-               print("Time Changed")
         except FileNotFoundError:
                 return "The file is not found!"
         except json.JSONDecodeError:
@@ -31,4 +30,25 @@ class AppInfo:
                 return "The file is not found!"
        except json.JSONDecodeError:
                 return "Decoder ERROR!"
-         
+       
+    def appInfoCreator(self,app_name,data):
+         try:
+           with open(self.json_path_name,"w",encoding="utf-8") as file:
+                 app_data={"app_name":app_name,"run_time":0.00}
+                 data.append(app_data)
+                 json.dump(data,file,indent=4)
+                 print(f"Writing {app_name}")
+         except FileNotFoundError:
+                    return "The file is not found!"
+         except json.JSONDecodeError:
+                    return "Decoder ERROR!"        
+         print(f"{app_name} is recoeded")
+    
+    def appNameCheck(self,app_name,data):
+         if any(entry["app_name"].lower() in app_name.lower() for entry in data):
+             return True
+         else:
+             return False
+#TODO:Create the function that could remove the app infro in app_time_doc        
+    def appInfoDelete():
+          return

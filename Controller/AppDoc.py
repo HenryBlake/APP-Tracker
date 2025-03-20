@@ -10,48 +10,20 @@ class AppDoc:
         self.app_list=[]
         self.current_time=0
         self.last_time=0
-#Only use for save app name to list
-    def writeAPP(self,app_name,QLabel):
-        data=self.readApp()
-        try:
-            with open(self.json_path_name,"w",encoding="utf-8") as file:
-                # data=json.load(file)
-                app_data={"app_name":app_name,"run_time":0.00}
-                data.append(app_data)
-                json.dump(data,file,indent=4)
-                # print(data)
-                print(f"Writing {app_name}")
-        except FileNotFoundError:
-                print("The file is not found!")
-                QLabel.setText("this file is not found!")
-        except json.JSONDecodeError:
-                print("Decoder ERROR!")
-        print(f"{app_name} is recoeded")
-
-#Only use for read app name to list
-    def readApp(self):
-         try: 
-            with open(self.json_path_name,"r",encoding="utf-8") as file:
-                data=json.load(file)
-                return data
-         except FileNotFoundError:
-                return "The file is not found!"
-         except json.JSONDecodeError:
-                return "Decoder ERROR!"
     
     def createionTime(self,app_pid):
         create_time= psutil.Process(app_pid).create_time()
         return create_time
     
-    def diffNameCheck(self,app_name):
-         self.app_list=self.readApp()
-
-         for app in self.app_list:
+    def diffNameCheck(self,app_name,app_list):
+         for app in app_list:
               if app_name in app["app_name"]:
-                   print("app is exist")
+                   return
               else:
-                 self.writeAPP(app_name)
+                print("app exsits")
+                #  self.writeAPP(app_name)
             #   print(app["app_name"])
+               
 
 # current-(last-create)=run_time 
 #return the time period since last saved time.

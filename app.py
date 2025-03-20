@@ -10,7 +10,6 @@ from View.MainWindow import MainWindow
 
 appDoc=AppDoc()
 app=QApplication(sys.argv)
-#TODO: Lean and Create the GUI.
 #Window container
 
 # app_window=MainWindow().initWindow()
@@ -18,5 +17,3 @@ app_window=MainWindow()
 app_window.show()
 #Excute the window
 sys.exit(app.exec())
-
-#TODO(Refactor):Refactor appDoc,name and pid tracker files.Merge the name and pid tracker into one file.
