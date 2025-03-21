@@ -1,4 +1,5 @@
 import json
+from View.AlertView import AlertView
 class AppInfo:
     def __init__(self):
         self.app_name="Steam.exe"
@@ -45,10 +46,10 @@ class AppInfo:
          print(f"{app_name} is recoeded")
     
     def appNameCheck(self,app_name,data):
-         if any(entry["app_name"].lower() in app_name.lower() for entry in data):
+         if any(index["app_name"].lower() in app_name.lower() for index in data):
              return True
          else:
              return False
-#TODO:Create the function that could remove the app infro in app_time_doc        
+#TODO:Create the function that could remove the app information in app_time_doc        
     def appInfoDelete():
           return
