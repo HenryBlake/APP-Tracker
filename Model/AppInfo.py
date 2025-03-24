@@ -1,12 +1,13 @@
 import json
 from View.AlertView import AlertView
 from Controller.Trackers import Trackers
+import json
 class AppInfo:
     def __init__(self):
         self.app_name="Steam.exe"
         self.app_run_time=0
         self.app_pid=0
-        self.json_path_name="Model/app_time_doc.json"
+        self.json_path_name="./app_time_doc.json"
 
     def appInfoSetter(self,name,run_time,pid):
         self.app_name=name
@@ -32,7 +33,10 @@ class AppInfo:
                 data=json.load(file) 
                 return data
        except FileNotFoundError:
-                return "The file is not found!"
+                 print("The file is not found! Creating a new one...")
+                 with open(self.json_path_name, "w", encoding="utf-8") as file:
+                  json.dump([], file)  # write an empty list to create a valid JSON file
+                 return []
        except json.JSONDecodeError:
                 return "Decoder ERROR!"
        
