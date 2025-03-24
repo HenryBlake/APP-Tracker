@@ -1,19 +1,23 @@
 import json
 from View.AlertView import AlertView
+from Controller.Trackers import Trackers
 class AppInfo:
     def __init__(self):
         self.app_name="Steam.exe"
         self.app_run_time=0
+        self.app_pid=0
         self.json_path_name="Model/app_time_doc.json"
 
-    def appInfoSetter(self,name,run_time):
+    def appInfoSetter(self,name,run_time,pid):
         self.app_name=name
         self.app_run_time=run_time
+        self.app_pid=pid
         data=self.appInfoGetter()
 
         for index in data:
              if self.app_name and self.app_name.lower() in index["app_name"].lower():
                   index["run_time"]=self.app_run_time
+                  index["pid"]=self.app_pid
         try:
            with open(self.json_path_name,"w",encoding="utf-8") as file:
                json.dump(data,file,indent=4)
@@ -35,7 +39,8 @@ class AppInfo:
     def appInfoCreator(self,app_name,data):
          try:
            with open(self.json_path_name,"w",encoding="utf-8") as file:
-                 app_data={"app_name":app_name,"run_time":0.00}
+                 pid=Trackers().pidTracker(app_name)
+                 app_data={"app_name":app_name,"run_time":0.00,"pid":pid}
                  data.append(app_data)
                  json.dump(data,file,indent=4)
                  print(f"Writing {app_name}")

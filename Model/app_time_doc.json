@@ -1,14 +1,12 @@
 [
     {
-        "app_name": "steam.exe",
-        "run_time": 200
-    },
-    {
-        "app_name": "csgo",
-        "run_time": 0.0
+        "app_name": "steam",
+        "run_time": 234,
+        "pid": 3168
     },
     {
         "app_name": "overwatch",
-        "run_time": 0.0
+        "run_time": 31,
+        "pid": 39088
     }
 ]

@@ -1,4 +1,4 @@
-import psutil,json,time,asyncio
+import datetime
 from View.AlertView import AlertView
 
 class AppDoc:
@@ -17,3 +17,10 @@ class AppDoc:
         else:
             print(f"The {app_pid} is runing right now!")
 #TODO:Create a function for normalize the Time and another one to chcek the content is not null or wrong.
+    def timeCovertor(self,time):
+        int_time=int(time)
+        # days=int_time//3600//24
+        # hours=int_time//3600
+        # minutes=(int_time%3600)//60
+        # return [days,hours,minutes]   
+        return datetime.timedelta(seconds=int_time)

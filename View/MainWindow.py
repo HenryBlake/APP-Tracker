@@ -9,34 +9,41 @@ from Controller.Timers import Timers
 from Controller.Trackers import Trackers
 from View.ListView import ListView
 from View.AlertView import AlertView
+from View.AppInfoView import AppInfoView
+from View.TrackerText import TrackerText
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.app_info=AppInfo()
         self.app_doc=AppDoc()
+        self.app_info_view=AppInfoView()
         # self.window=None
         layout=QVBoxLayout()
         widget=QWidget()
         self.app_title="Apptracker"
         self.setWindowTitle(self.app_title)
         self.resize(320,160)
-        self.app_list=ListView()
+        self.app_list=self.app_info_view.appListGetter()
+        self.app_tracker_text=self.app_info_view.infoLableGetter()
         self.alter_view=None
         self.app_list.itemClicked.connect(self.list_clicked)
         self.save_btn=ClickBtn("Save")
         # self.gen_text=AnyText("Test Content!")
         self.in_text=InputText("Write your app here.")
         self.save_btn.clicked.connect(self.btn_clicked)
-       
-        layout.addWidget(self.app_list)      
+        #Append widgets here
+        layout.addWidget(self.app_info_view)
+      #   layout.addWidget(self.app_tracker_text)
+      #   layout.addWidget(self.app_list)      
         # layout.addWidget(self.gen_text)
         layout.addWidget(self.in_text)
         layout.addWidget(self.save_btn)
+       
         widget.setLayout(layout)
         self.setCentralWidget(widget)
         # self.setLayout(layout)
-        self.load_apps()
+      #   self.load_apps()
     
     def load_apps(self):
        for index in self.app_info.appInfoGetter():
@@ -55,22 +62,35 @@ class MainWindow(QMainWindow):
        else:
          #  print("app exsits")
           return AlertView("app exsits")
-
+#TODO:if pid equals pid berfore then document time=this time if not then plus them.
     def closeEvent(self, a0):
-       self.app_info.appInfoSetter("steam",200)
+       data=self.app_info.appInfoGetter()
+       for index in data:
+          pid=Trackers().pidTracker(index["app_name"])
+          if pid!=None:
+           if pid==index["pid"]:
+            time=Timers().timeCal(pid)
+            self.app_info.appInfoSetter(index["app_name"],int(time),index["pid"])
+            print("pid is same")
+          
+           if pid!=index["pid"]:
+            time=index["run_time"]+Timers().timeCal(pid)
+            self.app_info.appInfoSetter(index["app_name"],int(time),pid)
+            print("pid is different")
+
        return super().closeEvent(a0)   
-#TODO:Once user click it,show the run time
+
     def list_clicked(self):
        app_name=self.app_list.currentItem().text()
        app_pid=Trackers().pidTracker(app_name) 
        if app_pid==None:
-            # print("The process is not runing!")
             return AlertView("The process is not runing!")
        else:
-                     
-      #  print(app_pid)
-        print(Timers().timeCal(app_pid))
+        time=Timers().timeCal(app_pid)
+        format_time=self.app_doc.timeCovertor(time)
+        self.app_tracker_text.setAppInfo(app_name,format_time,app_pid)
+        self.app_tracker_text.getTrackerText()
       # print(self.app_list.currentItem().text())
-#TODO:When user double cilcked it,show alert and chooes weather it will be deleted.
+#TODO:When user double cilcked it,show alert and chooes if it will be deleted.
     def list_double_clicked(self):
        return

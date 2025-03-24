@@ -10,7 +10,7 @@ class Trackers:
     def pidTracker(self,app_name):
         for process in psutil.process_iter(attrs=["pid","name"]):
             # print(f"Checking: {process.info}") 
-            if process.info["name"] and app_name.lower() in process.info["name"]:
+            if process.info["name"] and app_name.lower() in process.info["name"].lower():
                 # print(process.info["name"])
                 return process.info["pid"]
         return None
