@@ -55,6 +55,9 @@ class AppInfo:
          print(f"{app_name} is recoeded")
     
     def appNameCheck(self,app_name,data):
+        if app_name in "":
+         return True
+        else:
          if any(index["app_name"].lower() in app_name.lower() for index in data):
              return True
          else:

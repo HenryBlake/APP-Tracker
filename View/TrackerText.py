@@ -13,6 +13,13 @@ class TrackerText(QLabel):
             f"App name: {self.app_name}\nRun time: {self.app_run_time}\nPID: {self.app_pid}"
 
         )
+
+    def getTotalTrackerText(self):
+        self.setText(
+            # f"App name: {self.app_name}\nRun time: {self.app_run_time[0]} Days {self.app_run_time[1]} Hours {self.app_run_time[2]} Minutes\nPID: {self.app_pid}"
+            f"App name: {self.app_name}\nTotal Run time: {self.app_run_time}\nPID: {self.app_pid}"
+
+        )
     
     def setAppInfo(self,name,time,pid):
         self.app_name=name

@@ -28,6 +28,7 @@ class MainWindow(QMainWindow):
         self.app_tracker_text=self.app_info_view.infoLableGetter()
         self.alter_view=None
         self.app_list.itemClicked.connect(self.list_clicked)
+        self.app_list.itemDoubleClicked.connect(self.list_double_clicked)
         self.save_btn=ClickBtn("Save")
         # self.gen_text=AnyText("Test Content!")
         self.in_text=InputText("Write your app here.")
@@ -62,22 +63,36 @@ class MainWindow(QMainWindow):
        else:
          #  print("app exsits")
           return AlertView("app exsits")
-#TODO:if pid equals pid berfore then document time=this time if not then plus them.
-    def closeEvent(self, a0):
-       data=self.app_info.appInfoGetter()
-       for index in data:
-          pid=Trackers().pidTracker(index["app_name"])
-          if pid!=None:
-           if pid==index["pid"]:
+       
+    def aoutoSaveTime(self):
+      data=self.app_info.appInfoGetter()
+      for index in data:
+        pid=Trackers().pidTracker(index["app_name"])
+        if pid!=None:
+          if pid==index["pid"]:
             time=Timers().timeCal(pid)
             self.app_info.appInfoSetter(index["app_name"],int(time),index["pid"])
             print("pid is same")
-          
-           if pid!=index["pid"]:
+          if pid!=index["pid"]:
             time=index["run_time"]+Timers().timeCal(pid)
             self.app_info.appInfoSetter(index["app_name"],int(time),pid)
             print("pid is different")
-
+#TODO:if pid equals pid berfore then document time=this time if not then plus them.
+    def closeEvent(self, a0):
+      #  data=self.app_info.appInfoGetter()
+      #  for index in data:
+      #     pid=Trackers().pidTracker(index["app_name"])
+      #     if pid!=None:
+      #      if pid==index["pid"]:
+      #       time=Timers().timeCal(pid)
+      #       self.app_info.appInfoSetter(index["app_name"],int(time),index["pid"])
+      #       print("pid is same")
+          
+      #      if pid!=index["pid"]:
+      #       time=index["run_time"]+Timers().timeCal(pid)
+      #       self.app_info.appInfoSetter(index["app_name"],int(time),pid)
+      #       print("pid is different")
+       self.aoutoSaveTime()
        return super().closeEvent(a0)   
 
     def list_clicked(self):
@@ -91,6 +106,15 @@ class MainWindow(QMainWindow):
         self.app_tracker_text.setAppInfo(app_name,format_time,app_pid)
         self.app_tracker_text.getTrackerText()
       # print(self.app_list.currentItem().text())
-#TODO:When user double cilcked it,show alert and chooes if it will be deleted.
+#Show the total run time
     def list_double_clicked(self):
-       return
+       self.aoutoSaveTime()
+       app_name=self.app_list.currentItem().text()
+       app_pid=Trackers().pidTracker(app_name)
+       for index in self.app_info.appInfoGetter():
+          if app_name in index["app_name"]:
+             format_time=self.app_doc.timeCovertor(index["run_time"])
+             self.app_tracker_text.setAppInfo(app_name,format_time,app_pid)
+             self.app_tracker_text.getTotalTrackerText()
+      #  return AlertView("cant find app")
+    
