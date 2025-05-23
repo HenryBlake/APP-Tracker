@@ -20,4 +20,4 @@ App Tracker monitors the runtime of applications.
 - Packaged using **PyInstaller**
 
 ## 📝 License
-MIT License (Modify & distribute freely)
+GLP-3.0 License (Modify & distribute freely)
